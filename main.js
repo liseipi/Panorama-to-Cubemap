@@ -185,7 +185,7 @@ function renderFace(data, faceName, position) {
 
   worker.onmessage = setPreview;
   worker.postMessage(Object.assign({}, options, {
-    maxWidth: 200,
+    maxWidth: 1200,
     interpolation: 'linear',
   }));
 

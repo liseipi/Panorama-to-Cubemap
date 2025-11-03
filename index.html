@@ -22,6 +22,34 @@
         background: #eee;
         margin-top: 15px;
     }
+    #faces a img {
+        width: 200px !important;
+        height: 200px !important;
+    }
+    #faces a[title='pz']{
+        left: 200px !important;
+        top: 200px !important;
+    }
+    #faces a[title='nz']{
+        left: 600px !important;
+        top: 200px !important;
+    }
+    #faces a[title='px']{
+        left: 400px !important;
+        top: 200px !important;
+    }
+    #faces a[title='nx']{
+        left: 0 !important;
+        top: 200px !important;
+    }
+    #faces a[title='py']{
+        left: 200px !important;
+        top: 0 !important;
+    }
+    #faces a[title='ny']{
+        left: 200px !important;
+        top: 400px !important;
+    }
     </style>
 </head>
 
@@ -45,7 +73,7 @@
     <section class="settings">
         <h2>设置</h2>
         <div>
-            <label>立方体旋转：<input id="cubeRotation" type="number" min="0" max="359" value="359">°</label>
+            <label>立方体旋转：<input id="cubeRotation" type="number" min="0" max="359" value="180" style="font-size: 16px; margin: 2px 4px;" />°</label>
         </div>
         <fieldset title="生成立方体贴图时使用的重采样算法。">
             <legend>插值类型</legend>
