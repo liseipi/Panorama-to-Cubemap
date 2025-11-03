@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="description" content="将360°全景图转换为立方体贴图。">
@@ -66,10 +66,13 @@
         <div id="cubemap">
             <b id="generating" style="visibility:hidden">生成中...</b>
             <output id="faces"></output>
+            <button id="downloadZip" style="visibility:hidden; margin-top: 15px;">下载所有面 (ZIP)</button>
         </div>
     </section>
 </main>
 
 <script src="main.js"></script>
+<script src="./js/jszip.min.js"></script>
+<script src="./js/FileSaver.min.js"></script>
 </body>
 </html>

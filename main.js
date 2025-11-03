@@ -80,7 +80,8 @@ function getDataURL(imgData, extension) {
 const dom = {
   imageInput: document.getElementById('imageInput'),
   faces: document.getElementById('faces'),
-  generating: document.getElementById('generating')
+  generating: document.getElementById('generating'),
+  downloadZip: document.getElementById('downloadZip')
 };
 
 dom.imageInput.addEventListener('change', loadImage);
@@ -124,6 +125,7 @@ function loadImage() {
 
 let finished = 0;
 let workers = [];
+let faceImageUrls = {};
 
 function processImage(data) {
   removeChildren(dom.faces);
@@ -155,12 +157,16 @@ function renderFace(data, faceName, position) {
     const extension = settings.format.value;
 
     getDataURL(imageData, extension)
-      .then(url => face.setDownload(url, extension));
+      .then(url => {
+        face.setDownload(url, extension);
+        faceImageUrls[faceName] = { url, extension };
+      });
 
     finished++;
 
     if (finished === 6) {
       dom.generating.style.visibility = 'hidden';
+      dom.downloadZip.style.visibility = 'visible';
       finished = 0;
       workers = [];
     }
@@ -185,3 +191,21 @@ function renderFace(data, faceName, position) {
 
   workers.push(worker);
 }
+
+dom.downloadZip.addEventListener('click', async () => {
+  dom.downloadZip.disabled = true;
+  const zip = new JSZip();
+
+  for (const faceName of Object.keys(facePositions)) {
+    const { url, extension } = faceImageUrls[faceName];
+    const response = await fetch(url);
+    const blob = await response.blob();
+    zip.file(`${faceName}.${extension}`, blob);
+  }
+
+  zip.generateAsync({ type: 'blob' })
+    .then(content => {
+      saveAs(content, 'cubemap-faces.zip');
+      dom.downloadZip.disabled = false;
+    });
+});
